@@ -1,0 +1,52 @@
+/* BASIC STYLES HERE */
+.profile-picture {
+  height: 200px;
+  max-width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.profile-picture.profile-picture-sm {
+  height: 64px;
+}
+
+body {
+  background-color: black;
+  /* background-image: url(); */
+  background-size: cover;
+  background-position: center;
+}
+
+.text-shadow {
+  text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.921);
+}
+
+.reveal {
+  transition: all 1s linear;
+  transform: scale(0);
+}
+
+.secret-hover+.reveal {
+  opacity: 0;
+}
+
+.secret-hover:hover+.reveal,
+div.reveal:hover {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 5s linear;
+}
+
+
+.secret-hover {}
+
+.apod-thumbnail {
+  width: 40%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+.bg-glass {
+  background-color: rgba(77, 77, 77, 0.469);
+  backdrop-filter: blur(20px);
+}
