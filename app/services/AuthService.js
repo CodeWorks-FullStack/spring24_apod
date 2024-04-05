@@ -25,7 +25,7 @@ export function AuthGuard(next) {
   }
   return AuthService.isAuthenticated ? next() : AuthService.loginWithRedirect({
     authorizationParams: {
-      redirect_uri: window.location.origin
+      redirect_uri: window.location.href
     }
   })
 }
