@@ -11,9 +11,10 @@ export const AuthService = Auth0Provider.initialize({
   audience,
   useRefreshTokens: true,
   onRedirectCallback: () => {
-
     window.location.replace(
-      window.location.pathname
+      window.location.origin.includes('github.io') ?
+        window.location.href :
+        window.location.pathname
     )
   }
 })
