@@ -10,24 +10,23 @@ export const AuthService = Auth0Provider.initialize({
   clientId,
   audience,
   useRefreshTokens: true,
-  onRedirectCallback: appState => {
-    window.location.replace(
-      appState && appState.targetUrl
-        ? appState.targetUrl
-        : window.location.pathname
-    )
+  redirectUri: window.location.href,
+  onRedirectCallback: () => {
+    window.location.replace(window.location.href)
   }
 })
 
+
+AuthService.redirectOptions = {
+  authorizationParams: {
+    redirectUri: window.location.href
+  }
+}
 export function AuthGuard(next) {
   if (!AuthService || AuthService.loading) {
     return setTimeout(() => AuthGuard(next), 750)
   }
-  return AuthService.isAuthenticated ? next() : AuthService.loginWithRedirect({
-    authorizationParams: {
-      redirect_uri: window.location.href
-    }
-  })
+  return AuthService.isAuthenticated ? next() : AuthService.loginWithRedirect(AuthService.redirectOptions)
 }
 
 AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async () => {

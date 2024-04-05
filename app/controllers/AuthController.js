@@ -38,7 +38,7 @@ export class AuthController {
 
   async login() {
     try {
-      await AuthService.loginWithRedirect()
+      await AuthService.loginWithRedirect(AuthService.redirectOptions)
     } catch (e) {
       logger.error(e)
     }
