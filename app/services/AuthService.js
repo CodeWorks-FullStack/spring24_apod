@@ -10,22 +10,24 @@ export const AuthService = Auth0Provider.initialize({
   clientId,
   audience,
   useRefreshTokens: true,
-  onRedirectCallback: () => {
+  onRedirectCallback: appState => {
     window.location.replace(
-      window.location.origin.includes('github.io') ?
-        window.location.href :
-        window.location.pathname
+      appState && appState.targetUrl
+        ? appState.targetUrl
+        : window.location.pathname
     )
   }
 })
-console.log('🪟', window.location)
-window.confirm('pause')
 
 export function AuthGuard(next) {
   if (!AuthService || AuthService.loading) {
     return setTimeout(() => AuthGuard(next), 750)
   }
-  return AuthService.isAuthenticated ? next() : AuthService.loginWithRedirect()
+  return AuthService.isAuthenticated ? next() : AuthService.loginWithRedirect({
+    authorizationParams: {
+      redirect_uri: window.location.origin
+    }
+  })
 }
 
 AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async () => {
