@@ -11,8 +11,7 @@ export const AuthService = Auth0Provider.initialize({
   audience,
   useRefreshTokens: true,
   onRedirectCallback: appState => {
-    console.log('🪟', window.location.pathname)
-    window.confirm('pause')
+
     window.location.replace(
       appState && appState.targetUrl
         ? appState.targetUrl
@@ -20,6 +19,8 @@ export const AuthService = Auth0Provider.initialize({
     )
   }
 })
+console.log('🪟', window.location.pathname)
+window.confirm('pause')
 
 export function AuthGuard(next) {
   if (!AuthService || AuthService.loading) {
