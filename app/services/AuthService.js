@@ -10,16 +10,14 @@ export const AuthService = Auth0Provider.initialize({
   clientId,
   audience,
   useRefreshTokens: true,
-  onRedirectCallback: appState => {
+  onRedirectCallback: () => {
 
     window.location.replace(
-      appState && appState.targetUrl
-        ? appState.targetUrl
-        : window.location.pathname
+      window.location.pathname
     )
   }
 })
-console.log('🪟', window.location.pathname)
+console.log('🪟', window.location)
 window.confirm('pause')
 
 export function AuthGuard(next) {
